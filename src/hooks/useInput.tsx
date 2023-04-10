@@ -5,7 +5,8 @@ type ReturnTypes<T = any> = [
   (e: ChangeEvent<HTMLInputElement>) => void,
   boolean,
   string,
-  Dispatch<SetStateAction<T>>,
+  Dispatch<SetStateAction<boolean>>,
+  Dispatch<SetStateAction<string>>,
 ];
 
 type UseInput = <T = any>(initialData: T, validateCb?: (value: T) => [boolean, string?]) => ReturnTypes<T>;
@@ -15,7 +16,7 @@ const useInput: UseInput = <T = any,>(
   validateCb?: (value: T) => [boolean, string?],
 ): ReturnTypes<T> => {
   const [value, setValue] = useState(initialData);
-  const [isValid, setValid] = useState(true);
+  const [isValid, setValid] = useState(!validateCb);
   const [validMessage, setValidMessage] = useState('');
   const handler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const nextValue = e.target.value as unknown as T;
@@ -28,6 +29,6 @@ const useInput: UseInput = <T = any,>(
       }
     }
   }, []);
-  return [value, handler, isValid, validMessage, setValue];
+  return [value, handler, isValid, validMessage, setValid, setValidMessage];
 };
 export default useInput;

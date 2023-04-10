@@ -1,4 +1,4 @@
-import React, { FunctionComponent, MouseEventHandler, ReactNode } from 'react';
+import React, { ButtonHTMLAttributes, FunctionComponent, MouseEventHandler, ReactNode } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.button<{ primary?: boolean; disabled?: boolean }>`
@@ -15,14 +15,15 @@ const Container = styled.button<{ primary?: boolean; disabled?: boolean }>`
 
 interface IProps {
   primary?: boolean;
-  onClickHandler: MouseEventHandler;
+  onClickHandler?: MouseEventHandler;
   disabled?: boolean;
   children: ReactNode;
+  type?: 'button' | 'submit' | 'reset';
 }
 
-const Button: FunctionComponent<IProps> = ({ primary, onClickHandler, disabled = false, children }) => {
+const Button: FunctionComponent<IProps> = ({ type, primary, onClickHandler, disabled = false, children }) => {
   return (
-    <Container onClick={onClickHandler} disabled={disabled} primary={primary}>
+    <Container type={type} onClick={onClickHandler} disabled={disabled} primary={primary}>
       {children}
     </Container>
   );
