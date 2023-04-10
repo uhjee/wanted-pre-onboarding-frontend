@@ -6,9 +6,11 @@ class AuthService {
   signup = async (payload: SignupReqDto) => await axios.post(`${this.baseUrl}/signup`, payload);
 
   signin = async (payload: SigninReqDto) => {
-    const { data: resData } = await axios.post<SigninResDto>(`${this.baseUrl}/signin`, payload);
-    console.log({ resData });
-    // localStorage.setItem('user', JSON.stringify(resData._data));
+    const response = await axios.post<SigninResDto>(`${this.baseUrl}/signin`, payload);
+    if (response.data.access_token) {
+      localStorage.setItem('accessToken', response.data.access_token);
+    }
+    return response;
   };
 }
 

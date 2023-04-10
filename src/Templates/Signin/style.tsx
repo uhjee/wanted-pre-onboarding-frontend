@@ -67,4 +67,5 @@ export const SignupText = styled.span`
   color: #40ad3d;
   font-weight: 600;
   font-size: 1em;
+  cursor: pointer;
 `;

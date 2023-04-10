@@ -19,11 +19,19 @@ interface IProps {
   disabled?: boolean;
   children: ReactNode;
   type?: 'button' | 'submit' | 'reset';
+  dataTestid?: string;
 }
 
-const Button: FunctionComponent<IProps> = ({ type, primary, onClickHandler, disabled = false, children }) => {
+const Button: FunctionComponent<IProps> = ({
+  type,
+  primary,
+  onClickHandler,
+  disabled = false,
+  children,
+  dataTestid,
+}) => {
   return (
-    <Container type={type} onClick={onClickHandler} disabled={disabled} primary={primary}>
+    <Container type={type} onClick={onClickHandler} disabled={disabled} primary={primary} data-testid={dataTestid}>
       {children}
     </Container>
   );

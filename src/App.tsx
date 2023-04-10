@@ -6,6 +6,7 @@ import Signin from './Templates/Signin';
 function App() {
   return (
     <Routes>
+      <Route path="/signup" element={<Signin />} />
       <Route path="/signin" element={<Signin />} />
       <Route path="*" element={<Navigate to="/signin" replace />} />
     </Routes>

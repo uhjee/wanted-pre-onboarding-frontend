@@ -7,6 +7,7 @@ type ReturnTypes<T = any> = [
   string,
   Dispatch<SetStateAction<boolean>>,
   Dispatch<SetStateAction<string>>,
+  Dispatch<SetStateAction<T>>,
 ];
 
 type UseInput = <T = any>(initialData: T, validateCb?: (value: T) => [boolean, string?]) => ReturnTypes<T>;
@@ -29,6 +30,6 @@ const useInput: UseInput = <T = any,>(
       }
     }
   }, []);
-  return [value, handler, isValid, validMessage, setValid, setValidMessage];
+  return [value, handler, isValid, validMessage, setValid, setValidMessage, setValue];
 };
 export default useInput;
