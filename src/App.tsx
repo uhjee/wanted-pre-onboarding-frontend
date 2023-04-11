@@ -5,11 +5,7 @@ import TodoList from '@pages/TodoList';
 import FormEmailPassword from '@pages/FormEmailPassword';
 
 function App() {
-  const getAccessToken = () => {
-    const accessToken = localStorage.getItem('accessToken');
-    console.log(accessToken);
-    return accessToken;
-  };
+  const getAccessToken = () => localStorage.getItem('accessToken');
 
   return (
     <Routes>

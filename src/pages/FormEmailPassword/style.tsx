@@ -12,7 +12,7 @@ export const FormBox = styled.form`
   border: 2px solid #666;
   border-radius: 6px;
   width: 600px;
-  height: 300px;
+  height: 380px;
   padding: 18px 32px;
   position: relative;
   display: flex;

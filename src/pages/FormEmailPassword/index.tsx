@@ -1,4 +1,13 @@
-import { FormEventHandler, FunctionComponent, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  EventHandler,
+  FormEventHandler,
+  FunctionComponent,
+  KeyboardEventHandler,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import useInput from '@hooks/useInput';
 import Auth from '@services/AuthService';
 import Button from '@components/Button';
@@ -25,17 +34,22 @@ const Signin: FunctionComponent<IProps> = () => {
     return [true];
   }, []);
 
-  const [email, onChangeEmail, isValidEmail, validMessageEmail, setValidEmail, setValidMessageEmail, setEmail] =
-    useInput('', validateEmail);
-  const [
-    password,
-    onChangePassword,
-    isValidPassword,
-    validMessagePassword,
-    setValidPassword,
-    setValidMessagePassword,
-    setPassword,
-  ] = useInput('', validatePassword);
+  const {
+    value: email,
+    handler: onChangeEmail,
+    setValue: setEmail,
+    isValid: isValidEmail,
+    validMessage: validMessageEmail,
+    setValid: setValidEmail,
+    setValidMessage: setValidMessageEmail,
+  } = useInput('', validateEmail);
+  const {
+    value: password,
+    handler: onChangePassword,
+    setValue: setPassword,
+    isValid: isValidPassword,
+    validMessage: validMessagePassword,
+  } = useInput('', validatePassword);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -51,7 +65,7 @@ const Signin: FunctionComponent<IProps> = () => {
 
   const formTitleText = useMemo(() => (type === FORM_TYPE.SIGN_IN ? '로그인' : '회원가입'), [type]);
 
-  const onClickLogin: FormEventHandler<HTMLFormElement> = useCallback(
+  const signin: EventHandler<any> = useCallback(
     async (e) => {
       e.preventDefault();
       try {
@@ -80,7 +94,7 @@ const Signin: FunctionComponent<IProps> = () => {
     [email, password, setValidEmail, setValidMessageEmail, navigate],
   );
 
-  const onClickSignup: FormEventHandler<HTMLFormElement> = useCallback(
+  const signup: FormEventHandler<HTMLFormElement> = useCallback(
     async (e) => {
       e.preventDefault();
       try {
@@ -111,9 +125,22 @@ const Signin: FunctionComponent<IProps> = () => {
     [email, password, setValidEmail, setValidMessageEmail, navigate],
   );
 
+  const onSubmitForm: EventHandler<any> = useCallback(
+    (e) => {
+      type === FORM_TYPE.SIGN_IN ? signin(e) : signup(e);
+    },
+    [type, email, password, setValidEmail, setValidMessageEmail, navigate],
+  );
+
+  const onKeyPressHandler: KeyboardEventHandler = useCallback((e) => {
+    if (e.key === 'Enter') {
+      onSubmitForm(e);
+    }
+  }, []);
+
   return (
     <Container>
-      <FormBox onSubmit={type === FORM_TYPE.SIGN_IN ? onClickLogin : onClickSignup}>
+      <FormBox onSubmit={onSubmitForm}>
         <ValidationInput
           label="email"
           type="email"
@@ -138,6 +165,7 @@ const Signin: FunctionComponent<IProps> = () => {
             dataTestid={type === FORM_TYPE.SIGN_IN ? 'signin-button' : 'signup-button'}
             type="submit"
             primary
+            full
             disabled={!(isValidEmail && isValidPassword)}
           >
             {formTitleText}

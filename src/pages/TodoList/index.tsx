@@ -1,5 +1,10 @@
-import { FunctionComponent } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { FunctionComponent, useCallback, useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { Container, TodoBox, TodoHeader } from '@pages/TodoList/style';
+import TodoFooter from '@components/TodoFooter';
+import TodoContent from '@components/TodoContent';
+import { Todo } from '../../dto/todo';
+import TodoService from '@services/TodoService';
 
 interface IProps {}
 
@@ -9,25 +14,31 @@ enum FORM_TYPE {
 }
 
 const TodoList: FunctionComponent<IProps> = () => {
+  const [todos, setTodos] = useState<Todo[] | []>([]);
+
+  const getTodos = useCallback(async () => {
+    const { status, data } = await TodoService.getTodos();
+    if (status && status === 200 && data) {
+      setTodos(data);
+    }
+  }, [setTodos]);
+
+  useEffect(() => {
+    getTodos();
+  }, [getTodos]);
+
   const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) return <Navigate to={'/signin'} replace />;
-
   return (
-    <div>
-      <div>투두리스트</div>
-      <li>
-        <label>
-          <input type="checkbox" />
-          <span>TODO 1</span>
-        </label>
-      </li>
-      <li>
-        <label>
-          <input type="checkbox" />
-          <span>TODO 2</span>
-        </label>
-      </li>
-    </div>
+    <Container>
+      <TodoBox>
+        <TodoHeader>
+          <div>Todolist</div>
+        </TodoHeader>
+        <TodoContent todos={todos} />
+        <TodoFooter reload={getTodos} />
+      </TodoBox>
+    </Container>
   );
 };
 

@@ -5,8 +5,6 @@ const axios = _axios.create({
   withCredentials: false,
 });
 
-/* CORS 관련 설정 */
-axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 const CancelToken = _axios.CancelToken;
@@ -53,3 +51,9 @@ axios.interceptors.response.use(
 );
 
 export default axios;
+
+export const contentTypeHeader = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};

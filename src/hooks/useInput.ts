@@ -1,14 +1,14 @@
 import { ChangeEvent, Dispatch, SetStateAction, useCallback, useState } from 'react';
 
-type ReturnTypes<T = any> = [
-  T,
-  (e: ChangeEvent<HTMLInputElement>) => void,
-  boolean,
-  string,
-  Dispatch<SetStateAction<boolean>>,
-  Dispatch<SetStateAction<string>>,
-  Dispatch<SetStateAction<T>>,
-];
+type ReturnTypes<T = any> = {
+  value: T;
+  handler: (e: ChangeEvent<HTMLInputElement>) => void;
+  setValue: Dispatch<SetStateAction<T>>;
+  isValid: boolean;
+  validMessage: string;
+  setValid: Dispatch<SetStateAction<boolean>>;
+  setValidMessage: Dispatch<SetStateAction<string>>;
+};
 
 type UseInput = <T = any>(initialData: T, validateCb?: (value: T) => [boolean, string?]) => ReturnTypes<T>;
 
@@ -27,6 +27,6 @@ const useInput: UseInput = <T = any>(initialData: T, validateCb?: (value: T) => 
       }
     }
   }, []);
-  return [value, handler, isValid, validMessage, setValid, setValidMessage, setValue];
+  return { value, handler, setValue, isValid, validMessage, setValid, setValidMessage };
 };
 export default useInput;

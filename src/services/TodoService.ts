@@ -1,15 +1,18 @@
-import axios from '../axios';
+import axios, { contentTypeHeader } from '../axios';
+import { CreateTodoReqDto, CreateTodoResDto, GetTodosReSDto, UpdateTodoReqDto, UpdateTodoResDto } from '../dto/todo';
 
 class TodoService {
   constructor(private baseUrl: string) {}
 
-  async signup(payload: SignupReqDto) {
-    const { data: resData } = await axios.post(`${this.baseUrl}/signup`, payload);
-  }
-  async signin(payload: SigninReqDto) {
-    const { data: resData } = await axios.post<SigninResDto>(`${this.baseUrl}/signup`, payload);
-    console.log({ resData });
-  }
+  createTodo = async (payload: CreateTodoReqDto) =>
+    await axios.post<CreateTodoResDto>(`${this.baseUrl}`, payload, contentTypeHeader);
+
+  getTodos = async () => await axios.get<GetTodosReSDto>(`${this.baseUrl}`);
+
+  updateTodo = async (id: number, payload: UpdateTodoReqDto) =>
+    await axios.put<UpdateTodoResDto>(`${this.baseUrl}/${id}`, payload);
+
+  deleteTodo = async (id: number) => await axios.delete(`${this.baseUrl}/${id}`);
 }
 
-export default new TodoService('auth');
+export default new TodoService('todos');

@@ -8,6 +8,8 @@ interface IProps {
   children: ReactNode;
   type?: 'button' | 'submit' | 'reset';
   dataTestid?: string;
+  size?: 'small' | 'medium';
+  full?: boolean;
 }
 
 const Button: FunctionComponent<IProps> = ({
@@ -17,9 +19,19 @@ const Button: FunctionComponent<IProps> = ({
   disabled = false,
   children,
   dataTestid,
+  size = 'medium',
+  full = false,
 }) => {
   return (
-    <Container type={type} onClick={onClickHandler} disabled={disabled} primary={primary} data-testid={dataTestid}>
+    <Container
+      type={type}
+      size={size}
+      onClick={onClickHandler}
+      disabled={disabled}
+      primary={primary}
+      data-testid={dataTestid}
+      full={full}
+    >
       {children}
     </Container>
   );
