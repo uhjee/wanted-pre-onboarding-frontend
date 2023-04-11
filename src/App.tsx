@@ -1,13 +1,21 @@
 import React from 'react';
 import './App.css';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Signin from './Templates/Signin';
+import TodoList from '@pages/TodoList';
+import FormEmailPassword from '@pages/FormEmailPassword';
 
 function App() {
+  const getAccessToken = () => {
+    const accessToken = localStorage.getItem('accessToken');
+    console.log(accessToken);
+    return accessToken;
+  };
+
   return (
     <Routes>
-      <Route path="/signup" element={<Signin />} />
-      <Route path="/signin" element={<Signin />} />
+      <Route path="/todo" element={<TodoList />} />
+      <Route path="/signup" element={getAccessToken() ? <Navigate to="/todo" replace /> : <FormEmailPassword />} />
+      <Route path="/signin" element={getAccessToken() ? <Navigate to="/todo" replace /> : <FormEmailPassword />} />
       <Route path="*" element={<Navigate to="/signin" replace />} />
     </Routes>
   );

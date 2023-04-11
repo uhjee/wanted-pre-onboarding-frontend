@@ -12,10 +12,7 @@ type ReturnTypes<T = any> = [
 
 type UseInput = <T = any>(initialData: T, validateCb?: (value: T) => [boolean, string?]) => ReturnTypes<T>;
 
-const useInput: UseInput = <T = any,>(
-  initialData: T,
-  validateCb?: (value: T) => [boolean, string?],
-): ReturnTypes<T> => {
+const useInput: UseInput = <T = any>(initialData: T, validateCb?: (value: T) => [boolean, string?]): ReturnTypes<T> => {
   const [value, setValue] = useState(initialData);
   const [isValid, setValid] = useState(!validateCb);
   const [validMessage, setValidMessage] = useState('');
