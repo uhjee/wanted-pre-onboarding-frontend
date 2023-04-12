@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ComponentProps, forwardRef, ReactNode, Ref } from 'react';
+import { forwardRef, ReactNode, Ref } from 'react';
 
 const StyledContainer = styled.div`
   border-bottom: 2px solid #666;

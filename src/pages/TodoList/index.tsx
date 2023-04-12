@@ -5,7 +5,6 @@ import TodoContent from '@components/TodoContent';
 import { Todo } from '../../dto/todo';
 import TodoService from '@services/TodoService';
 import TodoHeader from '@components/TodoHeader';
-import { flushSync } from 'react-dom';
 
 interface IProps {}
 
@@ -25,12 +24,12 @@ const TodoList: FunctionComponent<IProps> = () => {
 
   const scrollToBottomFromList = useRef<(() => void) | null>(null);
 
-  const getTodosAndScrollToBottom = () => {
-    flushSync(() => {
-      getTodos();
-    });
-    if (scrollToBottomFromList.current) scrollToBottomFromList.current();
-  };
+  // const getTodosAndScrollToBottom = () => {
+  //   flushSync(() => {
+  //     getTodos();
+  //   });
+  //   if (scrollToBottomFromList.current) scrollToBottomFromList.current();
+  // };
 
   return (
     <Container>
