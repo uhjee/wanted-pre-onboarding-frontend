@@ -15,4 +15,5 @@ class TodoService {
   deleteTodo = async (id: number) => await axios.delete(`${this.baseUrl}/${id}`);
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default new TodoService('todos');

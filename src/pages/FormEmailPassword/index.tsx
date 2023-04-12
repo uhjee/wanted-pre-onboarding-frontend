@@ -1,13 +1,4 @@
-import {
-  EventHandler,
-  FormEventHandler,
-  FunctionComponent,
-  KeyboardEventHandler,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { EventHandler, FormEventHandler, FunctionComponent, useCallback, useEffect, useMemo, useState } from 'react';
 import useInput from '@hooks/useInput';
 import Auth from '@services/AuthService';
 import Button from '@components/Button';
@@ -150,14 +141,17 @@ const Signin: FunctionComponent<IProps> = () => {
     (e) => {
       type === FORM_TYPE.SIGN_IN ? signin(e) : signup(e);
     },
-    [type, email, password, setValidEmail, setValidMessageEmail, navigate],
+    [type, signin, signup],
   );
 
-  const onKeyPressHandler: KeyboardEventHandler = useCallback((e) => {
-    if (e.key === 'Enter') {
-      onSubmitForm(e);
-    }
-  }, []);
+  // const onKeyPressHandler: KeyboardEventHandler = useCallback(
+  //   (e) => {
+  //     if (e.key === 'Enter') {
+  //       onSubmitForm(e);
+  //     }
+  //   },
+  //   [onSubmitForm],
+  // );
 
   return (
     <Container>

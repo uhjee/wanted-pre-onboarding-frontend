@@ -20,7 +20,7 @@ const TodoFooter: FunctionComponent<IProps> = ({ reload }) => {
         setTodoText('');
       }
     },
-    [todoText],
+    [todoText, reload, setTodoText],
   );
 
   const onKeyPressHandler: KeyboardEventHandler = useCallback(
@@ -29,7 +29,7 @@ const TodoFooter: FunctionComponent<IProps> = ({ reload }) => {
         addTodo(e);
       }
     },
-    [todoText],
+    [addTodo],
   );
 
   return (
