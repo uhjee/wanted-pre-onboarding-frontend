@@ -12,12 +12,29 @@ export const FormBox = styled.form`
   border: 2px solid #666;
   border-radius: 6px;
   width: 600px;
-  height: 380px;
+  height: 400px;
   padding: 18px 32px;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+export const Title = styled.div<{
+  color: 'green' | 'orange';
+}>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  background-color: ${({ color }) => (color === 'green' ? '#40ad3d' : '#e58725')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  color: #fff;
+  font-weight: 600;
 `;
 
 export const ButtonGroupWrapper = styled.div`
@@ -30,13 +47,13 @@ export const NavigatorSingupBox = styled.div`
   position: absolute;
   bottom: 10px;
   right: 5px;
-  font-size: 0.88em;
+  font-size: 0.88rem;
 `;
 
-export const SignupText = styled.span`
+export const NavagationText = styled.span`
   margin-left: 6px;
   color: #40ad3d;
   font-weight: 600;
-  font-size: 1em;
+  font-size: 0.96rem;
   cursor: pointer;
 `;

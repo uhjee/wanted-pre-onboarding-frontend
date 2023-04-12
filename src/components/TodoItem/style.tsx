@@ -19,7 +19,7 @@ export const Text = styled.span`
   width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
-  font-size: 1.2em;
+  font-size: 0.94rem;
   line-height: 1.8;
 `;
 
@@ -29,7 +29,7 @@ export const Input = styled.input`
   box-sizing: border-box;
   border-radius: 4px;
   border: 2px solid #40ad3d;
-  font-size: 1em;
+  font-size: 1rem;
   width: 100%;
   padding: 0 6px;
 `;

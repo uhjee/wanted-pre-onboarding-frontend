@@ -10,11 +10,11 @@ export const Container = styled.div`
 `;
 
 export const Input = styled.input`
-  line-height: 1.7;
+  line-height: 2.4;
   box-sizing: border-box;
   border-radius: 4px;
   border: 2px solid #666;
-  font-size: 1.2em;
+  font-size: 0.8rem;
   width: 100%;
   padding: 0 6px;
 `;

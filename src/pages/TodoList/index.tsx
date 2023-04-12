@@ -1,5 +1,4 @@
 import { FunctionComponent, useCallback, useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import { Container, TodoBox, TodoHeader } from '@pages/TodoList/style';
 import TodoFooter from '@components/TodoFooter';
 import TodoContent from '@components/TodoContent';
@@ -22,8 +21,6 @@ const TodoList: FunctionComponent<IProps> = () => {
     getTodos();
   }, [getTodos]);
 
-  const accessToken = localStorage.getItem('accessToken');
-  if (!accessToken) return <Navigate to={'/signin'} replace />;
   return (
     <Container>
       <TodoBox>

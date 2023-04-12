@@ -3,7 +3,7 @@ import useInput from '@hooks/useInput';
 import Auth from '@services/AuthService';
 import Button from '@components/Button';
 import { AxiosError } from 'axios';
-import { ButtonGroupWrapper, Container, FormBox, NavigatorSingupBox, SignupText } from './style';
+import { ButtonGroupWrapper, Container, FormBox, NavigatorSingupBox, NavagationText, Title } from './style';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ValidationInput from '@components/ValidationInput';
 
@@ -156,6 +156,7 @@ const Signin: FunctionComponent<IProps> = () => {
   return (
     <Container>
       <FormBox onSubmit={onSubmitForm}>
+        <Title color={type === FORM_TYPE.SIGN_IN ? 'green' : 'orange'}>{formTitleText}</Title>
         <ValidationInput
           label="email"
           type="email"
@@ -188,9 +189,9 @@ const Signin: FunctionComponent<IProps> = () => {
         </ButtonGroupWrapper>
         <NavigatorSingupBox>
           {type === FORM_TYPE.SIGN_IN ? '계정이 없으신가요?' : '계정을 갖고 계신가요?'}
-          <SignupText onClick={() => navigate(type === FORM_TYPE.SIGN_IN ? '/signup' : '/signin')}>
+          <NavagationText onClick={() => navigate(type === FORM_TYPE.SIGN_IN ? '/signup' : '/signin')}>
             {type === FORM_TYPE.SIGN_IN ? '회원가입' : '로그인'}
-          </SignupText>
+          </NavagationText>
         </NavigatorSingupBox>
       </FormBox>
     </Container>

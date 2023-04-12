@@ -19,10 +19,10 @@ export const Container = styled.button<{
     return '#fff';
   }};
 
-  font-size: ${({ size }) => (size === 'small' ? '0.78em' : '1em')};
+  font-size: ${({ size }) => (size === 'small' ? '0.68rem' : '1rem')};
   margin: ${({ full }) => (full ? '' : '0 4px')};
   width: ${({ full }) => (full ? '100%' : '')};
-  padding: ${({ size }) => (size === 'small' ? '0.3em 0.6em' : '0.5em 2em')};
+  padding: ${({ size }) => (size === 'small' ? '0.3em 0.4em' : '0.5em 2em')};
   border: 2px solid
     ${({ color, disabled }) => {
       // (disabled ? '#999' : '#168a2b')

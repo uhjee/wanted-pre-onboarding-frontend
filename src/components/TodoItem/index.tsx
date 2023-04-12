@@ -1,5 +1,13 @@
 import { ButtonGroupWrapper, Container, Input, Label, Text } from '@components/TodoItem/style';
-import React, { ChangeEventHandler, FunctionComponent, MouseEventHandler, useCallback, useMemo, useState } from 'react';
+import React, {
+  ChangeEventHandler,
+  FunctionComponent,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 import Button from '@components/Button';
 import TodoService from '@services/TodoService';
 import useInput from '@hooks/useInput';
@@ -79,9 +87,21 @@ const TodoItem: FunctionComponent<IProps> = ({ todo, userId, isCompleted, id, re
   const onClickSubmitButton: MouseEventHandler<HTMLButtonElement> = useCallback(
     async (e) => {
       e.stopPropagation();
-      updateTodo(id, todoToEdit, checked);
+      await updateTodo(id, todoToEdit, checked);
       setMode(MODE_TYPE.VIEW);
       setTodoToEdit(todo);
+    },
+    [id, todoToEdit, checked, updateTodo, todo, setTodoToEdit],
+  );
+
+  const onKeyPressHandler: KeyboardEventHandler = useCallback(
+    async (e) => {
+      if (e.key === 'Enter') {
+        e.stopPropagation();
+        await updateTodo(id, todoToEdit, checked);
+        setMode(MODE_TYPE.VIEW);
+        setTodoToEdit(todo);
+      }
     },
     [id, todoToEdit, checked, updateTodo, todo, setTodoToEdit],
   );
@@ -93,7 +113,7 @@ const TodoItem: FunctionComponent<IProps> = ({ todo, userId, isCompleted, id, re
         {mode === MODE_TYPE.VIEW ? (
           <Text>{todo}</Text>
         ) : (
-          <Input value={todoToEdit} onChange={onChangeHandlerTodoToEdit} type="text" />
+          <Input value={todoToEdit} onChange={onChangeHandlerTodoToEdit} onKeyDown={onKeyPressHandler} type="text" />
         )}
       </Label>
       {mode === MODE_TYPE.VIEW ? (

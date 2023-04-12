@@ -11,8 +11,8 @@ export const TodoBox = styled.div`
   box-sizing: border-box;
   border: 2px solid #666;
   border-radius: 6px;
-  width: 600px;
-  height: 1000px;
+  width: 540px;
+  height: 860px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -25,7 +25,7 @@ export const TodoHeader = styled.div`
   padding: 0 18px;
   flex: 0;
   flex-basis: 70px;
-  font-size: 2em;
+  font-size: 2rem;
   display: flex;
   align-items: center;
 `;
