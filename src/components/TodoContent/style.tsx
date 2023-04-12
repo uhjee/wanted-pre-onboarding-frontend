@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { ComponentProps, forwardRef, ReactNode, Ref } from 'react';
 
-export const Container = styled.div`
+const StyledContainer = styled.div`
   border-bottom: 2px solid #666;
   box-sizing: border-box;
   padding: 18px;
@@ -15,3 +16,11 @@ export const Container = styled.div`
     }
   }
 `;
+
+interface Props {
+  children: ReactNode;
+}
+
+export const Container = forwardRef((props: Props, ref?: Ref<HTMLDivElement>) => (
+  <StyledContainer ref={ref}>{props.children}</StyledContainer>
+));

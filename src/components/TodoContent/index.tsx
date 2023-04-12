@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, MutableRefObject, useEffect, useRef } from 'react';
 import { Container } from '@components/TodoContent/style';
 import { Todo } from '../../dto/todo';
 import TodoItem from '@components/TodoItem';
@@ -6,11 +6,20 @@ import TodoItem from '@components/TodoItem';
 interface IProps {
   todos: Todo[];
   reload: () => void;
+  scrollToBottomFromList: MutableRefObject<(() => void) | null>;
 }
 
-const TodoContent: FunctionComponent<IProps> = ({ todos, reload }) => {
+const TodoContent: FunctionComponent<IProps> = ({ todos, reload, scrollToBottomFromList }) => {
+  const todoContainerRef = useRef<HTMLDivElement | null>(null);
+  const scrollToBottom = () => {
+    todoContainerRef.current?.lastElementChild?.scrollIntoView();
+  };
+  useEffect(() => {
+    scrollToBottomFromList.current = scrollToBottom;
+  }, [scrollToBottomFromList]);
+
   return (
-    <Container>
+    <Container ref={todoContainerRef}>
       {todos &&
         todos.length > 0 &&
         todos.map((todo) => (

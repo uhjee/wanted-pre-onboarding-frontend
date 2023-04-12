@@ -1,10 +1,11 @@
-import { FunctionComponent, useCallback, useEffect, useState } from 'react';
+import { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react';
 import { Container, TodoBox } from '@pages/TodoList/style';
 import TodoFooter from '@components/TodoFooter';
 import TodoContent from '@components/TodoContent';
 import { Todo } from '../../dto/todo';
 import TodoService from '@services/TodoService';
 import TodoHeader from '@components/TodoHeader';
+import { flushSync } from 'react-dom';
 
 interface IProps {}
 
@@ -22,11 +23,20 @@ const TodoList: FunctionComponent<IProps> = () => {
     getTodos();
   }, [getTodos]);
 
+  const scrollToBottomFromList = useRef<(() => void) | null>(null);
+
+  const getTodosAndScrollToBottom = () => {
+    flushSync(() => {
+      getTodos();
+    });
+    if (scrollToBottomFromList.current) scrollToBottomFromList.current();
+  };
+
   return (
     <Container>
       <TodoBox>
         <TodoHeader />
-        <TodoContent todos={todos} reload={getTodos} />
+        <TodoContent scrollToBottomFromList={scrollToBottomFromList} todos={todos} reload={getTodos} />
         <TodoFooter reload={getTodos} />
       </TodoBox>
     </Container>
