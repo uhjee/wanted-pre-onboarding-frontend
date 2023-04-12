@@ -93,7 +93,7 @@ const TodoItem: FunctionComponent<IProps> = ({ todo, userId, isCompleted, id, re
       await updateTodo(id, todoToEdit, checked);
       setMode(MODE_TYPE.VIEW);
     },
-    [id, todoToEdit, checked, updateTodo, todo],
+    [id, todoToEdit, checked, updateTodo],
   );
 
   const onKeyPressHandler: KeyboardEventHandler = useCallback(
@@ -104,7 +104,7 @@ const TodoItem: FunctionComponent<IProps> = ({ todo, userId, isCompleted, id, re
         setMode(MODE_TYPE.VIEW);
       }
     },
-    [id, todoToEdit, checked, updateTodo, todo, isEmptyTodoToEdit],
+    [id, todoToEdit, checked, updateTodo, isEmptyTodoToEdit],
   );
 
   return (
