@@ -9,6 +9,7 @@ type ReturnTypes<T = any> = {
   setValid: Dispatch<SetStateAction<boolean>>;
   setValidMessage: Dispatch<SetStateAction<string>>;
   validate: (target?: T) => void;
+  clear: () => void;
 };
 
 type UseInput = <T = any>(initialData: T, validateCb?: (value: T) => [boolean, string?]) => ReturnTypes<T>;
@@ -40,6 +41,12 @@ const useInput: UseInput = <T = any>(initialData: T, validateCb?: (value: T) => 
     },
     [validate],
   );
-  return { value, handler, setValue, isValid, validMessage, setValid, setValidMessage, validate };
+
+  const clear = useCallback(() => {
+    setValue(initialData);
+    setValid(!validateCb);
+    setValidMessage('');
+  }, [setValue, setValid, setValidMessage, initialData, validateCb]);
+  return { value, handler, setValue, isValid, validMessage, setValid, setValidMessage, validate, clear };
 };
 export default useInput;

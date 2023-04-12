@@ -28,20 +28,20 @@ const Signin: FunctionComponent<IProps> = () => {
   const {
     value: email,
     handler: onChangeEmail,
-    setValue: setEmail,
     isValid: isValidEmail,
     validMessage: validMessageEmail,
     setValid: setValidEmail,
     setValidMessage: setValidMessageEmail,
     validate: validateEmail,
+    clear: clearEmail,
   } = useInput('', validateHandlerEmail);
   const {
     value: password,
     handler: onChangePassword,
-    setValue: setPassword,
     isValid: isValidPassword,
     validMessage: validMessagePassword,
     validate: validatePassword,
+    clear: clearPasword,
   } = useInput('', validateHandlerPassword);
 
   const onChangeEmailWithValidateOthers: React.ChangeEventHandler<HTMLInputElement> = useCallback(
@@ -69,13 +69,14 @@ const Signin: FunctionComponent<IProps> = () => {
   const [type, setType] = useState<FORM_TYPE>(FORM_TYPE.SIGN_IN);
   useEffect(() => {
     if (pathname) {
-      setEmail('');
-      setPassword('');
+      clearEmail();
+      clearPasword();
       setType(pathname.substring(1) as FORM_TYPE);
     }
-  }, [pathname, setEmail, setPassword]);
+  }, [pathname, clearEmail, clearPasword]);
 
   const formTitleText = useMemo(() => (type === FORM_TYPE.SIGN_IN ? '로그인' : '회원가입'), [type]);
+  const formMainColor = useMemo(() => (type === FORM_TYPE.SIGN_IN ? 'green' : 'orange'), [type]);
 
   const signin: EventHandler<any> = useCallback(
     async (e) => {
@@ -156,7 +157,7 @@ const Signin: FunctionComponent<IProps> = () => {
   return (
     <Container>
       <FormBox onSubmit={onSubmitForm}>
-        <Title color={type === FORM_TYPE.SIGN_IN ? 'green' : 'orange'}>{formTitleText}</Title>
+        <Title color={formMainColor}>{formTitleText}</Title>
         <ValidationInput
           label="email"
           type="email"
@@ -180,7 +181,7 @@ const Signin: FunctionComponent<IProps> = () => {
           <Button
             dataTestid={type === FORM_TYPE.SIGN_IN ? 'signin-button' : 'signup-button'}
             type="submit"
-            color={type === FORM_TYPE.SIGN_IN ? 'green' : 'orange'}
+            color={formMainColor}
             full
             disabled={!(isValidEmail && isValidPassword)}
           >
@@ -189,7 +190,10 @@ const Signin: FunctionComponent<IProps> = () => {
         </ButtonGroupWrapper>
         <NavigatorSingupBox>
           {type === FORM_TYPE.SIGN_IN ? '계정이 없으신가요?' : '계정을 갖고 계신가요?'}
-          <NavagationText onClick={() => navigate(type === FORM_TYPE.SIGN_IN ? '/signup' : '/signin')}>
+          <NavagationText
+            color={type === FORM_TYPE.SIGN_IN ? 'orange' : 'green'}
+            onClick={() => navigate(type === FORM_TYPE.SIGN_IN ? '/signup' : '/signin')}
+          >
             {type === FORM_TYPE.SIGN_IN ? '회원가입' : '로그인'}
           </NavagationText>
         </NavigatorSingupBox>

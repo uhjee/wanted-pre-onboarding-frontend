@@ -9,7 +9,7 @@ export const Container = styled.div`
 
 export const FormBox = styled.form`
   box-sizing: border-box;
-  border: 2px solid #666;
+  border: 1px solid #666;
   border-radius: 6px;
   width: 600px;
   height: 400px;
@@ -47,12 +47,14 @@ export const NavigatorSingupBox = styled.div`
   position: absolute;
   bottom: 10px;
   right: 5px;
-  font-size: 0.88rem;
+  font-size: 0.78rem;
 `;
 
-export const NavagationText = styled.span`
+export const NavagationText = styled.span<{
+  color: 'green' | 'orange';
+}>`
   margin-left: 6px;
-  color: #40ad3d;
+  color: ${({ color }) => (color === 'green' ? '#40ad3d' : '#e58725')};
   font-weight: 600;
   font-size: 0.96rem;
   cursor: pointer;
