@@ -8,11 +8,6 @@ import TodoService from '@services/TodoService';
 
 interface IProps {}
 
-enum FORM_TYPE {
-  SIGN_UP = 'signup',
-  SIGN_IN = 'signin',
-}
-
 const TodoList: FunctionComponent<IProps> = () => {
   const [todos, setTodos] = useState<Todo[] | []>([]);
 
@@ -35,7 +30,7 @@ const TodoList: FunctionComponent<IProps> = () => {
         <TodoHeader>
           <div>Todolist</div>
         </TodoHeader>
-        <TodoContent todos={todos} />
+        <TodoContent todos={todos} reload={getTodos} />
         <TodoFooter reload={getTodos} />
       </TodoBox>
     </Container>

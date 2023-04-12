@@ -5,6 +5,7 @@ export const Container = styled.div`
   box-sizing: border-box;
   padding: 18px;
   flex: 1;
+  overflow-y: scroll;
 
   & > * {
     margin-bottom: 8px;

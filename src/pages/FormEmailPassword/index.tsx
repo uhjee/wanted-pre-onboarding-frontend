@@ -185,7 +185,7 @@ const Signin: FunctionComponent<IProps> = () => {
           <Button
             dataTestid={type === FORM_TYPE.SIGN_IN ? 'signin-button' : 'signup-button'}
             type="submit"
-            primary
+            color={type === FORM_TYPE.SIGN_IN ? 'green' : 'orange'}
             full
             disabled={!(isValidEmail && isValidPassword)}
           >

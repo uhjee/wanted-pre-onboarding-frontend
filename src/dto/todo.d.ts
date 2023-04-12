@@ -12,5 +12,6 @@ export type CreateTodoResDto = Todo;
 export type GetTodosReSDto = Todo[];
 
 export type UpdateTodoReqDto = Pick<Todo, 'todo' | 'isCompleted'>;
+// export type UpdateTodoReqDto = Partial<Todo>;
 
 export type UpdateTodoResDto = Todo;

@@ -23,6 +23,17 @@ export const Text = styled.span`
   line-height: 1.8;
 `;
 
+export const Input = styled.input`
+  line-height: 1.7;
+  margin-top: 4px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 2px solid #40ad3d;
+  font-size: 1em;
+  width: 100%;
+  padding: 0 6px;
+`;
+
 export const ButtonGroupWrapper = styled.span`
   position: absolute;
   right: 0;

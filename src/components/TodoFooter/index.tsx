@@ -5,7 +5,7 @@ import useInput from '@hooks/useInput';
 import TodoService from '@services/TodoService';
 
 interface IProps {
-  reload: () => {};
+  reload: () => void;
 }
 
 const TodoFooter: FunctionComponent<IProps> = ({ reload }) => {
@@ -41,7 +41,7 @@ const TodoFooter: FunctionComponent<IProps> = ({ reload }) => {
         onKeyDown={onKeyPressHandler}
         data-testid="new-todo-input"
       />
-      <Button onClickHandler={addTodo} primary dataTestid="new-todo-add-button">
+      <Button onClickHandler={addTodo} color="green" dataTestid="new-todo-add-button">
         ADD
       </Button>
     </Container>

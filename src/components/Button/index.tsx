@@ -2,7 +2,7 @@ import React, { FunctionComponent, MouseEventHandler, ReactNode } from 'react';
 import { Container } from './style';
 
 interface IProps {
-  primary?: boolean;
+  color?: 'white' | 'green' | 'orange';
   onClickHandler?: MouseEventHandler;
   disabled?: boolean;
   children: ReactNode;
@@ -14,7 +14,7 @@ interface IProps {
 
 const Button: FunctionComponent<IProps> = ({
   type,
-  primary,
+  color = 'white',
   onClickHandler,
   disabled = false,
   children,
@@ -28,7 +28,7 @@ const Button: FunctionComponent<IProps> = ({
       size={size}
       onClick={onClickHandler}
       disabled={disabled}
-      primary={primary}
+      color={color}
       data-testid={dataTestid}
       full={full}
     >
