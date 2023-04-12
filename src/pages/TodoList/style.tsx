@@ -5,6 +5,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-color: #1a441a;
 `;
 
 export const TodoBox = styled.div`
@@ -16,16 +17,5 @@ export const TodoBox = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  //justify-content: center;
-`;
-
-export const TodoHeader = styled.div`
-  border-bottom: 2px solid #666;
-  box-sizing: border-box;
-  padding: 0 18px;
-  flex: 0;
-  flex-basis: 70px;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
+  background-color: #fff;
 `;

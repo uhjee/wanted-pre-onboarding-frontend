@@ -1,9 +1,10 @@
 import { FunctionComponent, useCallback, useEffect, useState } from 'react';
-import { Container, TodoBox, TodoHeader } from '@pages/TodoList/style';
+import { Container, TodoBox } from '@pages/TodoList/style';
 import TodoFooter from '@components/TodoFooter';
 import TodoContent from '@components/TodoContent';
 import { Todo } from '../../dto/todo';
 import TodoService from '@services/TodoService';
+import TodoHeader from '@components/TodoHeader';
 
 interface IProps {}
 
@@ -24,9 +25,7 @@ const TodoList: FunctionComponent<IProps> = () => {
   return (
     <Container>
       <TodoBox>
-        <TodoHeader>
-          <div>Todolist</div>
-        </TodoHeader>
+        <TodoHeader />
         <TodoContent todos={todos} reload={getTodos} />
         <TodoFooter reload={getTodos} />
       </TodoBox>

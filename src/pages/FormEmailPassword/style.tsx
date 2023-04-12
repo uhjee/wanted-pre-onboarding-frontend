@@ -28,7 +28,7 @@ export const Title = styled.div<{
   left: 0;
   height: 60px;
   width: 100%;
-  background-color: ${({ color }) => (color === 'green' ? '#40ad3d' : '#e58725')};
+  background-color: ${({ color }) => (color === 'green' ? '#168a2b' : '#e58725')};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +46,7 @@ export const ButtonGroupWrapper = styled.div`
 export const NavigatorSingupBox = styled.div`
   position: absolute;
   bottom: 10px;
-  right: 5px;
+  right: 15px;
   font-size: 0.78rem;
 `;
 
@@ -58,4 +58,8 @@ export const NavagationText = styled.span<{
   font-weight: 600;
   font-size: 0.96rem;
   cursor: pointer;
+
+  &:hover {
+    color: ${({ color }) => (color === 'green' ? '#168a2b' : '#e58725')};
+  }
 `;

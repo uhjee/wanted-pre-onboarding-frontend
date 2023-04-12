@@ -19,6 +19,7 @@ interface IProps {
   userId: number;
   reload: () => void;
 }
+
 enum MODE_TYPE {
   VIEW = 'VIEW',
   EDIT = 'EDIT',
@@ -91,9 +92,8 @@ const TodoItem: FunctionComponent<IProps> = ({ todo, userId, isCompleted, id, re
       e.stopPropagation();
       await updateTodo(id, todoToEdit, checked);
       setMode(MODE_TYPE.VIEW);
-      setTodoToEdit(todo);
     },
-    [id, todoToEdit, checked, updateTodo, todo, setTodoToEdit],
+    [id, todoToEdit, checked, updateTodo, todo],
   );
 
   const onKeyPressHandler: KeyboardEventHandler = useCallback(
@@ -102,10 +102,9 @@ const TodoItem: FunctionComponent<IProps> = ({ todo, userId, isCompleted, id, re
         e.stopPropagation();
         await updateTodo(id, todoToEdit, checked);
         setMode(MODE_TYPE.VIEW);
-        setTodoToEdit(todo);
       }
     },
-    [id, todoToEdit, checked, updateTodo, todo, setTodoToEdit, isEmptyTodoToEdit],
+    [id, todoToEdit, checked, updateTodo, todo, isEmptyTodoToEdit],
   );
 
   return (

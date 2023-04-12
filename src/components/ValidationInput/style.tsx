@@ -19,6 +19,10 @@ export const Input = styled.input`
   font-size: 1rem;
   width: 100%;
   padding: 0 6px;
+  outline: none;
+  &:focus {
+    border: 2px solid #168a2b;
+  }
 `;
 
 export const InputMessage = styled.div`

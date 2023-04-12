@@ -19,8 +19,10 @@ export const Text = styled.span<{ checked: boolean }>`
   width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
+  white-space: nowrap;
   font-size: 0.94rem;
   line-height: 1.8;
+  cursor: pointer;
   ${({ checked }) =>
     checked
       ? css`
@@ -28,6 +30,10 @@ export const Text = styled.span<{ checked: boolean }>`
           text-decoration: line-through;
         `
       : ''}
+
+  &:hover {
+    font-weight: 600;
+  }
 `;
 
 export const Input = styled.input`
@@ -35,15 +41,17 @@ export const Input = styled.input`
   margin-top: 4px;
   box-sizing: border-box;
   border-radius: 4px;
-  border: 2px solid #40ad3d;
+  border: 2px solid #666;
   font-size: 1rem;
   width: 100%;
   padding: 0 6px;
+  outline: none;
+  &:focus {
+    border: 2px solid #168a2b;
+  }
 `;
 
 export const ButtonGroupWrapper = styled.span`
   position: absolute;
   right: 0;
 `;
-
-// export const CheckBox = styled.input<>``;
