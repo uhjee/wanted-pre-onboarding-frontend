@@ -3,6 +3,7 @@ import { Container, Input } from '@components/TodoFooter/style';
 import Button from '@components/Button';
 import useInput from '@hooks/useInput';
 import TodoService from '@services/TodoService';
+import useThrottle from '@hooks/useThrottle';
 
 interface IProps {
   reload: () => void;
@@ -23,14 +24,15 @@ const TodoFooter: FunctionComponent<IProps> = ({ reload }) => {
     },
     [todoText, reload, setTodoText],
   );
+  const [addTodoThrottle] = useThrottle(addTodo, 200);
 
   const onKeyPressHandler: KeyboardEventHandler = useCallback(
     (e) => {
       if (e.key === 'Enter' && !isEmptyTodoText) {
-        addTodo(e);
+        addTodoThrottle(e);
       }
     },
-    [addTodo, isEmptyTodoText],
+    [isEmptyTodoText, addTodoThrottle],
   );
 
   return (
