@@ -25,11 +25,11 @@ enum FORM_TYPE {
 
 const Signin: FunctionComponent<IProps> = () => {
   // local storage에 토큰이 있으면, /todo로 리다이렉트
-  const validateEmail = useCallback((email: string): [boolean, string?] => {
+  const validateHandlerEmail = useCallback((email: string): [boolean, string?] => {
     if (!email.includes('@')) return [false, '이메일 형식을 지켜주세요.'];
     return [true];
   }, []);
-  const validatePassword = useCallback((password: string): [boolean, string?] => {
+  const validateHandlerPassword = useCallback((password: string): [boolean, string?] => {
     if (password.length < 8) return [false, '비밀번호는 8글자 이상 입력해주세요.'];
     return [true];
   }, []);
@@ -42,14 +42,35 @@ const Signin: FunctionComponent<IProps> = () => {
     validMessage: validMessageEmail,
     setValid: setValidEmail,
     setValidMessage: setValidMessageEmail,
-  } = useInput('', validateEmail);
+    validate: validateEmail,
+  } = useInput('', validateHandlerEmail);
   const {
     value: password,
     handler: onChangePassword,
     setValue: setPassword,
     isValid: isValidPassword,
     validMessage: validMessagePassword,
-  } = useInput('', validatePassword);
+    validate: validatePassword,
+  } = useInput('', validateHandlerPassword);
+
+  const onChangeEmailWithValidateOthers: React.ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      onChangeEmail(e);
+      if (password) {
+        validatePassword();
+      }
+    },
+    [onChangeEmail, validatePassword, password],
+  );
+  const onChangePasswordWithValidateOthers: React.ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      onChangePassword(e);
+      if (email) {
+        validateEmail();
+      }
+    },
+    [onChangePassword, validateEmail, email],
+  );
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -146,7 +167,7 @@ const Signin: FunctionComponent<IProps> = () => {
           type="email"
           dataTestid="email-input"
           value={email}
-          onChangeHandler={onChangeEmail}
+          onChangeHandler={onChangeEmailWithValidateOthers}
           isValid={isValidEmail}
           validMessage={validMessageEmail}
           className={'mb-5'}
@@ -156,7 +177,7 @@ const Signin: FunctionComponent<IProps> = () => {
           type="password"
           dataTestid="password-input"
           value={password}
-          onChangeHandler={onChangePassword}
+          onChangeHandler={onChangePasswordWithValidateOthers}
           isValid={isValidPassword}
           validMessage={validMessagePassword}
         />

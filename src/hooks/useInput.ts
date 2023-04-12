@@ -8,6 +8,7 @@ type ReturnTypes<T = any> = {
   validMessage: string;
   setValid: Dispatch<SetStateAction<boolean>>;
   setValidMessage: Dispatch<SetStateAction<string>>;
+  validate: (target?: T) => void;
 };
 
 type UseInput = <T = any>(initialData: T, validateCb?: (value: T) => [boolean, string?]) => ReturnTypes<T>;
@@ -16,17 +17,29 @@ const useInput: UseInput = <T = any>(initialData: T, validateCb?: (value: T) => 
   const [value, setValue] = useState(initialData);
   const [isValid, setValid] = useState(!validateCb);
   const [validMessage, setValidMessage] = useState('');
-  const handler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const nextValue = e.target.value as unknown as T;
-    setValue(nextValue);
-    if (validateCb) {
-      const [validResult, validResultMessage] = validateCb(nextValue);
-      setValid(validResult);
-      if (validResultMessage) {
-        setValidMessage(validResultMessage);
+
+  const validate = useCallback(
+    (target?: T) => {
+      if (validateCb) {
+        const validateParam = target ? target : value;
+        const [validResult, validResultMessage] = validateCb(validateParam);
+        setValid(validResult);
+        if (validResultMessage) {
+          setValidMessage(validResultMessage);
+        }
       }
-    }
-  }, []);
-  return { value, handler, setValue, isValid, validMessage, setValid, setValidMessage };
+    },
+    [validateCb, value],
+  );
+
+  const handler = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const nextValue = e.target.value as unknown as T;
+      setValue(nextValue);
+      validate(nextValue);
+    },
+    [validate],
+  );
+  return { value, handler, setValue, isValid, validMessage, setValid, setValidMessage, validate };
 };
 export default useInput;
