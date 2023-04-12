@@ -113,7 +113,13 @@ const TodoItem: FunctionComponent<IProps> = ({ todo, userId, isCompleted, id, re
         {mode === MODE_TYPE.VIEW ? (
           <Text>{todo}</Text>
         ) : (
-          <Input value={todoToEdit} onChange={onChangeHandlerTodoToEdit} onKeyDown={onKeyPressHandler} type="text" />
+          <Input
+            value={todoToEdit}
+            onChange={onChangeHandlerTodoToEdit}
+            onKeyDown={onKeyPressHandler}
+            type="text"
+            data-testid="modify-input"
+          />
         )}
       </Label>
       {mode === MODE_TYPE.VIEW ? (
