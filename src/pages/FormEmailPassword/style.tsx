@@ -54,7 +54,7 @@ export const NavagationText = styled.span<{
   color: 'green' | 'orange';
 }>`
   margin-left: 6px;
-  color: ${({ color }) => (color === 'green' ? '#40ad3d' : '#e58725')};
+  color: #888;
   font-weight: 600;
   font-size: 0.96rem;
   cursor: pointer;
