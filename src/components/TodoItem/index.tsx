@@ -48,6 +48,8 @@ const TodoItem: FunctionComponent<IProps> = ({ todo, userId, isCompleted, id, re
     () => todo.length !== todoToEdit.length || todo !== todoToEdit,
     [todo, todoToEdit],
   );
+  const isEmptyTodoToEdit = useMemo(() => todoToEdit.length === 0, [todoToEdit]);
+
   const onChangeCheckBoxHandler: ChangeEventHandler<HTMLInputElement> = useCallback(
     ({ target }) => {
       setChecked(target.checked);
@@ -96,14 +98,14 @@ const TodoItem: FunctionComponent<IProps> = ({ todo, userId, isCompleted, id, re
 
   const onKeyPressHandler: KeyboardEventHandler = useCallback(
     async (e) => {
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' && !isEmptyTodoToEdit) {
         e.stopPropagation();
         await updateTodo(id, todoToEdit, checked);
         setMode(MODE_TYPE.VIEW);
         setTodoToEdit(todo);
       }
     },
-    [id, todoToEdit, checked, updateTodo, todo, setTodoToEdit],
+    [id, todoToEdit, checked, updateTodo, todo, setTodoToEdit, isEmptyTodoToEdit],
   );
 
   return (
@@ -111,7 +113,7 @@ const TodoItem: FunctionComponent<IProps> = ({ todo, userId, isCompleted, id, re
       <Label className="mr-4">
         <input type="checkbox" checked={checked} onChange={onChangeCheckBoxHandler} className="mr-2" />
         {mode === MODE_TYPE.VIEW ? (
-          <Text>{todo}</Text>
+          <Text checked={checked}>{todo}</Text>
         ) : (
           <Input
             value={todoToEdit}
@@ -135,7 +137,7 @@ const TodoItem: FunctionComponent<IProps> = ({ todo, userId, isCompleted, id, re
         <ButtonGroupWrapper>
           <Button
             onClickHandler={onClickSubmitButton}
-            disabled={!isChangedTodoToEidt}
+            disabled={!isChangedTodoToEidt || isEmptyTodoToEdit}
             color="orange"
             size="small"
             dataTestid="submit-button"

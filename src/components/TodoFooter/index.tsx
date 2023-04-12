@@ -1,4 +1,4 @@
-import { EventHandler, FunctionComponent, KeyboardEventHandler, useCallback } from 'react';
+import { EventHandler, FunctionComponent, KeyboardEventHandler, useCallback, useMemo } from 'react';
 import { Container, Input } from '@components/TodoFooter/style';
 import Button from '@components/Button';
 import useInput from '@hooks/useInput';
@@ -10,6 +10,7 @@ interface IProps {
 
 const TodoFooter: FunctionComponent<IProps> = ({ reload }) => {
   const { value: todoText, handler: onChangeTodoText, setValue: setTodoText } = useInput('');
+  const isEmptyTodoText = useMemo(() => todoText.length === 0, [todoText]);
 
   const addTodo: EventHandler<any> = useCallback(
     async (e) => {
@@ -25,11 +26,11 @@ const TodoFooter: FunctionComponent<IProps> = ({ reload }) => {
 
   const onKeyPressHandler: KeyboardEventHandler = useCallback(
     (e) => {
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' && !isEmptyTodoText) {
         addTodo(e);
       }
     },
-    [addTodo],
+    [addTodo, isEmptyTodoText],
   );
 
   return (
@@ -41,7 +42,7 @@ const TodoFooter: FunctionComponent<IProps> = ({ reload }) => {
         onKeyDown={onKeyPressHandler}
         data-testid="new-todo-input"
       />
-      <Button onClickHandler={addTodo} color="green" dataTestid="new-todo-add-button">
+      <Button onClickHandler={addTodo} color="green" disabled={isEmptyTodoText} dataTestid="new-todo-add-button">
         ADD
       </Button>
     </Container>

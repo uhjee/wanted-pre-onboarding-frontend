@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.li`
   position: relative;
@@ -15,12 +15,19 @@ export const Label = styled.label`
   width: 100%;
 `;
 
-export const Text = styled.span`
+export const Text = styled.span<{ checked: boolean }>`
   width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
   font-size: 0.94rem;
   line-height: 1.8;
+  ${({ checked }) =>
+    checked
+      ? css`
+          color: #999;
+          text-decoration: line-through;
+        `
+      : ''}
 `;
 
 export const Input = styled.input`
