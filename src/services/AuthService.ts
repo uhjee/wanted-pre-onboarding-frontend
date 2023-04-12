@@ -1,8 +1,7 @@
-import axios, {contentTypeHeader} from '../axios';
+import axios, { contentTypeHeader } from '../axios';
 
 class AuthService {
-  constructor(private baseUrl: string) {
-  }
+  constructor(private baseUrl: string) {}
 
   signup = async (payload: SignupReqDto) => await axios.post(`${this.baseUrl}/signup`, payload, contentTypeHeader);
 
