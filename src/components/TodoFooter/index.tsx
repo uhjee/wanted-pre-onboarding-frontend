@@ -6,7 +6,7 @@ import TodoService from '@services/TodoService';
 import useThrottle from '@hooks/useThrottle';
 
 interface IProps {
-  reload: () => void;
+  reload: (moveScrollToBottom?: boolean) => void;
 }
 
 const TodoFooter: FunctionComponent<IProps> = ({ reload }) => {
@@ -18,7 +18,7 @@ const TodoFooter: FunctionComponent<IProps> = ({ reload }) => {
       e.stopPropagation();
       const { status } = await TodoService.createTodo({ todo: todoText });
       if (status && status === 201) {
-        reload();
+        reload(true);
         setTodoText('');
       }
     },

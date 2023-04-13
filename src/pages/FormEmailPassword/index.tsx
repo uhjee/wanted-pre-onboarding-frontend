@@ -87,7 +87,6 @@ const Signin: FunctionComponent<IProps> = () => {
           password,
         });
         if (status && status === 200) {
-          console.log(status);
           navigate('/todo');
         }
       } catch (e) {

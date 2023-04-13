@@ -6,17 +6,15 @@ import TodoItem from '@components/TodoItem';
 interface IProps {
   todos: Todo[];
   reload: () => void;
-  scrollToBottomFromList: MutableRefObject<(() => void) | null>;
+  scrollContainerRef: MutableRefObject<HTMLDivElement | null>;
 }
 
-const TodoContent: FunctionComponent<IProps> = ({ todos, reload, scrollToBottomFromList }) => {
+const TodoContent: FunctionComponent<IProps> = ({ todos, reload, scrollContainerRef }) => {
   const todoContainerRef = useRef<HTMLDivElement | null>(null);
-  const scrollToBottom = () => {
-    todoContainerRef.current?.lastElementChild?.scrollIntoView();
-  };
+
   useEffect(() => {
-    scrollToBottomFromList.current = scrollToBottom;
-  }, [scrollToBottomFromList]);
+    scrollContainerRef.current = todoContainerRef.current;
+  }, [todoContainerRef, scrollContainerRef]);
 
   return (
     <Container ref={todoContainerRef}>
