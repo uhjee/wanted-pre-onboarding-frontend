@@ -32,12 +32,16 @@ const TodoItem: FunctionComponent<IProps> = ({ todo, userId, isCompleted, id, re
 
   const updateTodo = useCallback(
     async (id: number, todo: string, isCompleted: boolean) => {
-      const { status } = await TodoService.updateTodo(id, {
-        todo,
-        isCompleted,
-      });
-      if (status && status === 200) {
-        reload();
+      try {
+        const { status } = await TodoService.updateTodo(id, {
+          todo,
+          isCompleted,
+        });
+        if (status && status === 200) {
+          reload();
+        }
+      } catch (e) {
+        console.log(e);
       }
     },
     [reload],
@@ -79,9 +83,13 @@ const TodoItem: FunctionComponent<IProps> = ({ todo, userId, isCompleted, id, re
   const onClickDeleteButton: MouseEventHandler<HTMLButtonElement> = useCallback(
     async (e) => {
       e.stopPropagation();
-      const { status } = await TodoService.deleteTodo(id);
-      if (status && status === 204) {
-        reload();
+      try {
+        const { status } = await TodoService.deleteTodo(id);
+        if (status && status === 204) {
+          reload();
+        }
+      } catch (e) {
+        console.log(e);
       }
     },
     [id, reload],

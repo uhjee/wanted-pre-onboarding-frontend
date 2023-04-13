@@ -16,10 +16,14 @@ const TodoFooter: FunctionComponent<IProps> = ({ reload }) => {
   const addTodo: EventHandler<any> = useCallback(
     async (e) => {
       e.stopPropagation();
-      const { status } = await TodoService.createTodo({ todo: todoText });
-      if (status && status === 201) {
-        reload(true);
-        setTodoText('');
+      try {
+        const { status } = await TodoService.createTodo({ todo: todoText });
+        if (status && status === 201) {
+          reload(true);
+          setTodoText('');
+        }
+      } catch (e) {
+        console.error(e);
       }
     },
     [todoText, reload, setTodoText],

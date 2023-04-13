@@ -20,14 +20,18 @@ const TodoList: FunctionComponent<IProps> = () => {
 
   const getTodos = useCallback(
     async (moveScrollToBottom = false) => {
-      const { status, data } = await TodoService.getTodos();
-      if (status && status === 200 && data) {
-        flushSync(() => {
-          setTodos(data);
-        });
-        if (moveScrollToBottom) {
-          scrollToBottom();
+      try {
+        const { status, data } = await TodoService.getTodos();
+        if (status && status === 200 && data) {
+          flushSync(() => {
+            setTodos(data);
+          });
+          if (moveScrollToBottom) {
+            scrollToBottom();
+          }
         }
+      } catch (e) {
+        console.log(e);
       }
     },
     [setTodos, scrollToBottom],
